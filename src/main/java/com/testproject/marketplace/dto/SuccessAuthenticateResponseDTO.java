@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SuccessResponseDTO {
+public class SuccessAuthenticateResponseDTO {
 
     private Long id;
     private String email;
@@ -15,10 +15,10 @@ public class SuccessResponseDTO {
     private List<String> roles;
 
 
-    public  SuccessResponseDTO(Long id,
-                               String email,
-                               String username,
-                               List<String> roles
+    public SuccessAuthenticateResponseDTO(Long id,
+                                          String email,
+                                          String username,
+                                          List<String> roles
                               ){
         this.id = id;
         this.email = email;
