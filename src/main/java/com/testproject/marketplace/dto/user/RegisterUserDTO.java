@@ -1,4 +1,4 @@
-package com.testproject.marketplace.dto;
+package com.testproject.marketplace.dto.user;
 
 import com.testproject.marketplace.model.URole;
 import lombok.Data;

@@ -1,12 +1,13 @@
 package com.testproject.marketplace.service;
 
-import com.testproject.marketplace.dto.AuthenticateUserDTO;
-import com.testproject.marketplace.dto.RegisterUserDTO;
-import com.testproject.marketplace.dto.SuccessAuthenticateResponseDTO;
+import com.testproject.marketplace.dto.user.AuthenticateUserDTO;
+import com.testproject.marketplace.dto.user.RegisterUserDTO;
 import com.testproject.marketplace.exception.UserExistException;
 import com.testproject.marketplace.model.User;
 import com.testproject.marketplace.repository.UserRepository;
+import com.testproject.marketplace.security.JWT.JWTTokenProvider;
 import com.testproject.marketplace.security.UserCustomDetail;
+import com.testproject.marketplace.util.JWTSuccessAuthenticateResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JWTTokenProvider jwtTokenProvider;
+
     public static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
@@ -54,19 +57,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public SuccessAuthenticateResponseDTO authenticateUser(AuthenticateUserDTO authenticateUser) {
+    public JWTSuccessAuthenticateResponse authenticateUser(AuthenticateUserDTO authenticateUser) {
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authenticateUser.getUsername(), authenticateUser.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtTokenProvider.generateToken(authentication);
+
         UserCustomDetail userDetails = (UserCustomDetail) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        return new SuccessAuthenticateResponseDTO(
+        return new JWTSuccessAuthenticateResponse(
                 userDetails.getId(),
                 userDetails.getEmail(),
                 userDetails.getUsername(),
-                roles
+                roles,
+                jwt
         );
     }
 }

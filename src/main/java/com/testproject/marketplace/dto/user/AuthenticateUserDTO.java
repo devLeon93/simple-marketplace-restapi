@@ -1,4 +1,4 @@
-package com.testproject.marketplace.dto;
+package com.testproject.marketplace.dto.user;
 
 import lombok.Data;
 

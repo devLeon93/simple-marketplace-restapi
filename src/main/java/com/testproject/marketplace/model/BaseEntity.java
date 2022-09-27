@@ -22,7 +22,6 @@ public abstract class BaseEntity {
     @Column(name = "modified_at")
     protected LocalDateTime modifiedAt;
 
-
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
