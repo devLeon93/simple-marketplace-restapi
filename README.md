@@ -5,7 +5,7 @@
 **1. Clone the application**
   
  ```bash
- https://github.com/devLeon93/marketplace-restapi.git
+ https://github.com/devLeon93/simple-marketplace-restapi.git
  ```
  
  **2. Create PostgreSQL database**
@@ -29,9 +29,22 @@ java -jar target/marketplace-0.0.1-SNAPSHOT.jar
 
 The app will start running at <http://localhost:8085>.
 
+
+
+
 ## Explore Rest APIs
 
 The app defines following CRUD APIs.
+
+
+UserController
+
+  POST /api/auth/register
+
+  POST /api/auth/signin
+
+
+ProductController
 
     GET /api/product   
     
