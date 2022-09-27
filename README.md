@@ -31,20 +31,13 @@ The app will start running at <http://localhost:8085>.
 
 
 
-
 ## Explore Rest APIs
 
-The app defines following CRUD APIs.
+The app defines following Endpoints.
 
+    POST /api/auth/register
 
-UserController
-
-  POST /api/auth/register
-
-  POST /api/auth/signin
-
-
-ProductController
+    POST /api/auth/signin
 
     GET /api/product   
     
@@ -62,7 +55,17 @@ ProductController
     
     PATCH /api/product/{productId}/{username}/unlike
     
-    DELETE /api/product/{id}
+    DELETE /api/product/{id} 
+    
+**5. All endpoints can be tested in Swagger UI** 
+
+```bash
+http://localhost:8085/swagger-ui/index.html#
+```
+ 
+    
+    
+    
     
     
   
